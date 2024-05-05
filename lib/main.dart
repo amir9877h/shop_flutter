@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shop_flutter/data/product.dart';
+import 'package:shop_flutter/data/repo/product_repository.dart';
 import 'package:shop_flutter/theme.dart';
 
 void main() {
@@ -11,6 +13,12 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    productRepository.getAll(ProductSort.latest).then((value) {
+      debugPrint(value.toString());
+    }).catchError((e) {
+      debugPrint(e.toString());
+    });
+
     const defaultTextStyle = TextStyle(
       fontFamily: 'iran',
       color: LightThemeColors.primaryTextColor,
