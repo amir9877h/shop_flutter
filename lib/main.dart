@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shop_flutter/data/product.dart';
+import 'package:shop_flutter/data/repo/banner_repository.dart';
 import 'package:shop_flutter/data/repo/product_repository.dart';
 import 'package:shop_flutter/theme.dart';
 
@@ -14,6 +15,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     productRepository.getAll(ProductSort.latest).then((value) {
+      debugPrint(value.toString());
+    }).catchError((e) {
+      debugPrint(e.toString());
+    });
+
+    bannerRepository.getAll().then((value) {
       debugPrint(value.toString());
     }).catchError((e) {
       debugPrint(e.toString());
