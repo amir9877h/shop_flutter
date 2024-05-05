@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_flutter/theme.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,6 +11,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    const defaultTextStyle = TextStyle(
+      fontFamily: 'iran',
+      color: LightThemeColors.primaryTextColor,
+    );
+
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -28,10 +34,23 @@ class MyApp extends StatelessWidget {
         //
         // This works for code too, not just values: Most code changes can be
         // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+        textTheme: TextTheme(
+          bodySmall: defaultTextStyle.apply(
+              color: LightThemeColors.secondaryTextColor),
+          bodyMedium: defaultTextStyle,
+          titleLarge: defaultTextStyle.copyWith(fontWeight: FontWeight.bold),
+        ),
+        colorScheme: const ColorScheme.light(
+          primary: LightThemeColors.primaryColor,
+          secondary: LightThemeColors.secondaryColor,
+          onSecondary: Colors.white,
+        ),
+        // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        // useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const Directionality(
+          textDirection: TextDirection.rtl,
+          child: MyHomePage(title: 'فروشگاه')),
     );
   }
 }
@@ -81,7 +100,8 @@ class _MyHomePageState extends State<MyHomePage> {
         // TRY THIS: Try changing the color here to a specific color (to
         // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
         // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        foregroundColor: Colors.white,
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
@@ -117,6 +137,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
+        backgroundColor: LightThemeColors.secondaryColor,
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
