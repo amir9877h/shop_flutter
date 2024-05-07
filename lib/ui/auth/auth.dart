@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_flutter/data/repo/auth_repository.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
@@ -83,7 +84,11 @@ class _AuthScreenState extends State<AuthScreen> {
                 height: 16,
               ),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  if(isLogin){
+                    authRepository.login("username", "password");
+                  }
+                },
                 child: Text(isLogin ? 'ورود' : 'ثبت نام'),
               ),
               const SizedBox(
