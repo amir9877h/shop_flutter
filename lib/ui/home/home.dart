@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_flutter/data/repo/banner_repository.dart';
 import 'package:shop_flutter/data/repo/product_repository.dart';
 import 'package:shop_flutter/ui/home/bloc/home_bloc.dart';
+import 'package:shop_flutter/ui/widgets/slider.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -21,13 +22,22 @@ class HomeScreen extends StatelessWidget {
             if (state is HomeSuccess) {
               return ListView.builder(
                   itemCount: 5,
-                  padding: const EdgeInsets.fromLTRB(12, 12, 12, 100),
+                  // padding: const EdgeInsets.fromLTRB(12, 12, 12, 100),
                   itemBuilder: (context, index) {
                     switch (index) {
                       case 0:
-                        return Image.asset(
-                          'assets/img/nike_logo.png',
-                          height: 32,
+                        return Container(
+                          height: 56,
+                          alignment: Alignment.center,
+                          child: Image.asset(
+                            'assets/img/nike_logo.png',
+                            height: 24,
+                            fit: BoxFit.fitHeight,
+                          ),
+                        );
+                      case 2:
+                        return BannerSlider(
+                          banners: state.banners,
                         );
                       default:
                         return Container();
