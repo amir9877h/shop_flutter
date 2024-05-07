@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shop_flutter/ui/auth/auth.dart';
 import 'package:shop_flutter/ui/home/home.dart';
 
 const int homeIndex = 0;
@@ -57,12 +58,7 @@ class _RootScreenState extends State<RootScreen> {
                 const Center(
                   child: Text('Cart'),
                 )),
-            _navigator(
-                _profileKey,
-                profileIndex,
-                const Center(
-                  child: Text('Profile'),
-                )),
+            _navigator(_profileKey, profileIndex, const AuthScreen()),
           ],
         ),
         bottomNavigationBar: BottomNavigationBar(

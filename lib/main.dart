@@ -50,6 +50,10 @@ class MyApp extends StatelessWidget {
         //
         // This works for code too, not just values: Most code changes can be
         // tested with just a hot reload.
+        // inputDecorationTheme: InputDecorationTheme(
+        //   filled: true,
+        //   fillColor: Colors.orange,
+        // ),
         textTheme: TextTheme(
           labelLarge: defaultTextStyle,
           bodySmall: defaultTextStyle.apply(
