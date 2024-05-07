@@ -85,8 +85,10 @@ class _AuthScreenState extends State<AuthScreen> {
               ),
               ElevatedButton(
                 onPressed: () {
-                  if(isLogin){
+                  if (isLogin) {
                     authRepository.login("username", "password");
+                  } else {
+                    authRepository.signUp("username", "password");
                   }
                 },
                 child: Text(isLogin ? 'ورود' : 'ثبت نام'),
