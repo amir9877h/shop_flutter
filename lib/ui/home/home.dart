@@ -6,6 +6,7 @@ import 'package:shop_flutter/data/repo/banner_repository.dart';
 import 'package:shop_flutter/data/repo/product_repository.dart';
 import 'package:shop_flutter/ui/home/bloc/home_bloc.dart';
 import 'package:shop_flutter/ui/product/product.dart';
+import 'package:shop_flutter/ui/widgets/error.dart';
 import 'package:shop_flutter/ui/widgets/slider.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -62,19 +63,11 @@ class HomeScreen extends StatelessWidget {
             } else if (state is HomeLoading) {
               return const Center(child: CircularProgressIndicator());
             } else if (state is HomeError) {
-              return Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(state.exception.message),
-                    ElevatedButton(
-                        onPressed: () {
-                          BlocProvider.of<HomeBloc>(context).add(HomeRefresh());
-                        },
-                        child: const Text('تلاش دوباره')),
-                  ],
-                ),
+              return AppErrorWidget(
+                exception: state.exception,
+                onPressed: () {
+                  BlocProvider.of<HomeBloc>(context).add(HomeRefresh());
+                },
               );
             } else {
               throw Exception('state is not supported');

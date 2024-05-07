@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:shop_flutter/common/utils.dart';
 import 'package:shop_flutter/data/product.dart';
 import 'package:shop_flutter/theme.dart';
+import 'package:shop_flutter/ui/product/comment/comment_list.dart';
 import 'package:shop_flutter/ui/widgets/image.dart';
 
 class ProductDetailScreen extends StatelessWidget {
@@ -21,7 +22,9 @@ class ProductDetailScreen extends StatelessWidget {
           child: FloatingActionButton.extended(
             backgroundColor: LightThemeColors.secondaryColor,
             onPressed: () {},
-            label: const Text('افزودن به سبد خرید',),
+            label: const Text(
+              'افزودن به سبد خرید',
+            ),
           ),
         ),
         body: CustomScrollView(
@@ -71,7 +74,9 @@ class ProductDetailScreen extends StatelessWidget {
                       height: 24,
                     ),
                     const Text(
-                        'این کتونی شدیدا برای دویدن و راه رفتن مناسب هست و تقریبا. هیچ فشار مخربی رو نمیذارد به پا و زانوان شما انتقال داده شود'),
+                      'این کتونی شدیدا برای دویدن و راه رفتن مناسب هست و تقریبا. هیچ فشار مخربی رو نمیذارد به پا و زانوان شما انتقال داده شود',
+                      style: TextStyle(height: 1.4),
+                    ),
                     const SizedBox(
                       height: 24,
                     ),
@@ -86,15 +91,16 @@ class ProductDetailScreen extends StatelessWidget {
                             onPressed: () {}, child: const Text('ثبت نظر'))
                       ],
                     ),
-                    Container(
-                      color: Colors.blue,
-                      height: 1000,
-                      width: 300,
-                    )
+                    // Container(
+                    //   color: Colors.blue,
+                    //   height: 1000,
+                    //   width: 300,
+                    // )
                   ],
                 ),
               ),
-            )
+            ),
+            CommentList(productId: product.id)
           ],
         ),
       ),
