@@ -3,7 +3,7 @@ import 'package:shop_flutter/data/product.dart';
 import 'package:shop_flutter/data/repo/banner_repository.dart';
 import 'package:shop_flutter/data/repo/product_repository.dart';
 import 'package:shop_flutter/theme.dart';
-import 'package:shop_flutter/ui/home/home.dart';
+import 'package:shop_flutter/ui/root.dart';
 
 void main() {
   runApp(const MyApp());
@@ -57,7 +57,8 @@ class MyApp extends StatelessWidget {
           bodyMedium: defaultTextStyle,
           titleMedium: defaultTextStyle.apply(
               color: LightThemeColors.secondaryTextColor),
-          titleLarge: defaultTextStyle.copyWith(fontWeight: FontWeight.bold, fontSize: 18),
+          titleLarge: defaultTextStyle.copyWith(
+              fontWeight: FontWeight.bold, fontSize: 18),
         ),
         colorScheme: const ColorScheme.light(
           primary: LightThemeColors.primaryColor,
@@ -68,7 +69,7 @@ class MyApp extends StatelessWidget {
         // useMaterial3: true,
       ),
       home: const Directionality(
-          textDirection: TextDirection.rtl, child: HomeScreen()),
+          textDirection: TextDirection.rtl, child: RootScreen()),
     );
   }
 }
