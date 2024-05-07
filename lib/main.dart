@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:shop_flutter/data/product.dart';
+import 'package:shop_flutter/data/repo/auth_repository.dart';
 import 'package:shop_flutter/data/repo/banner_repository.dart';
 import 'package:shop_flutter/data/repo/product_repository.dart';
 import 'package:shop_flutter/theme.dart';
 import 'package:shop_flutter/ui/root.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  authRepository.loadAuthInfo();
   runApp(const MyApp());
 }
 

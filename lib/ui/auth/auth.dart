@@ -10,6 +10,7 @@ class AuthScreen extends StatefulWidget {
 
 class _AuthScreenState extends State<AuthScreen> {
   bool isLogin = true;
+
   @override
   Widget build(BuildContext context) {
     final ThemeData themeData = Theme.of(context);
