@@ -51,9 +51,12 @@ class MyApp extends StatelessWidget {
         // This works for code too, not just values: Most code changes can be
         // tested with just a hot reload.
         textTheme: TextTheme(
+          labelLarge: defaultTextStyle,
           bodySmall: defaultTextStyle.apply(
               color: LightThemeColors.secondaryTextColor),
           bodyMedium: defaultTextStyle,
+          titleMedium: defaultTextStyle.apply(
+              color: LightThemeColors.secondaryTextColor),
           titleLarge: defaultTextStyle.copyWith(fontWeight: FontWeight.bold),
         ),
         colorScheme: const ColorScheme.light(
@@ -65,8 +68,7 @@ class MyApp extends StatelessWidget {
         // useMaterial3: true,
       ),
       home: const Directionality(
-          textDirection: TextDirection.rtl,
-          child: HomeScreen()),
+          textDirection: TextDirection.rtl, child: HomeScreen()),
     );
   }
 }
