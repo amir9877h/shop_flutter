@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shop_flutter/common/utils.dart';
 import 'package:shop_flutter/ui/cart/price_info.dart';
+import 'package:shop_flutter/ui/receipt/payment_receipt.dart';
 
 class ShippingScreen extends StatelessWidget {
   final int payablePrice;
@@ -66,9 +67,9 @@ class ShippingScreen extends StatelessWidget {
                         )),
                       ),
                       onPressed: () {
-                        // Navigator.of(context).push(MaterialPageRoute(
-                        //     builder: (context) =>
-                        //         const PaymentReceiptScreen()));
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) =>
+                                const PaymentReceiptScreen()));
                       },
                       child: const Text('پرداخت در محل')),
                   const SizedBox(
