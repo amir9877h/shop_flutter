@@ -8,8 +8,34 @@ import 'package:shop_flutter/ui/auth/auth.dart';
 import 'package:shop_flutter/ui/cart/bloc/cart_bloc.dart';
 import 'package:shop_flutter/ui/widgets/image.dart';
 
-class CartScreen extends StatelessWidget {
+class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
+
+  @override
+  State<CartScreen> createState() => _CartScreenState();
+}
+
+class _CartScreenState extends State<CartScreen> {
+  CartBloc? cartBloc;
+
+  @override
+  void initState() {
+    super.initState();
+    AuthRepository.authChangeNotifier.addListener(authChangeNotifierListener);
+  }
+
+  void authChangeNotifierListener() {
+    cartBloc?.add(
+        CartAuthInfoChanged(authInfo: AuthRepository.authChangeNotifier.value));
+  }
+
+  @override
+  void dispose() {
+    AuthRepository.authChangeNotifier
+        .removeListener(authChangeNotifierListener);
+    cartBloc?.close();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +47,7 @@ class CartScreen extends StatelessWidget {
       body: BlocProvider<CartBloc>(
         create: (context) {
           final bloc = CartBloc(cartRepository: cartRepository);
+          cartBloc = bloc;
           bloc.add(
               CartStarted(authInfo: AuthRepository.authChangeNotifier.value));
           return bloc;
@@ -70,7 +97,7 @@ class CartScreen extends StatelessWidget {
                                     padding: const EdgeInsets.all(8.0),
                                     child: Text(
                                       data.product.title,
-                                      style: TextStyle(fontSize: 16),
+                                      style: const TextStyle(fontSize: 16),
                                     ),
                                   ),
                                 ),
@@ -138,8 +165,12 @@ class CartScreen extends StatelessWidget {
             } else if (state is CartAuthRequired) {
               return Center(
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text('وارد حساب کاربری خود شوید'),
+                    const Text(
+                      'جهت نمایش سبد خرید،\n وارد حساب کاربری خود شوید',
+                      textAlign: TextAlign.center,
+                    ),
                     ElevatedButton(
                         onPressed: () {
                           Navigator.of(context, rootNavigator: true).push(
