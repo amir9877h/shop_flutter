@@ -17,7 +17,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
         if (authInfo == null || authInfo.accessToken.isEmpty) {
           emit(CartAuthRequired());
         } else {
-          await loadCartItems(emit);
+          await loadCartItems(emit, event.isRefreshing);
         }
       } else if (event is CartDeleteButtonClicked) {
         try {
@@ -49,15 +49,17 @@ class CartBloc extends Bloc<CartEvent, CartState> {
           emit(CartAuthRequired());
         } else {
           if (state is CartAuthRequired) {
-            await loadCartItems(emit);
+            await loadCartItems(emit, false);
           }
         }
       }
     });
   }
-  Future<void> loadCartItems(Emitter<CartState> emit) async {
+  Future<void> loadCartItems(Emitter<CartState> emit, bool isRefreshing) async {
     try {
-      emit(CartLoading());
+      if (!isRefreshing) {
+        emit(CartLoading());
+      }
       final result = await cartRepository.getAll();
       if (result.cartItems.isEmpty) {
         emit(CartEmpty());
