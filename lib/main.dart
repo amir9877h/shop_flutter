@@ -57,6 +57,13 @@ class MyApp extends StatelessWidget {
         //   filled: true,
         //   fillColor: Colors.orange,
         // ),
+        hintColor: LightThemeColors.secondaryTextColor,
+        inputDecorationTheme: InputDecorationTheme(
+            border: const OutlineInputBorder(),
+            enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                    color:
+                        LightThemeColors.primaryTextColor.withOpacity(0.1)))),
         snackBarTheme: SnackBarThemeData(
             contentTextStyle: defaultTextStyle.apply(color: Colors.white)),
         textTheme: TextTheme(

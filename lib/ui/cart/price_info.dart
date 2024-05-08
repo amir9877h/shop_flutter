@@ -35,7 +35,7 @@ class PriceInfo extends StatelessWidget {
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.fromLTRB(8.0, 12, 8, 12),
+                padding: const EdgeInsets.fromLTRB(8.0, 16, 8, 16),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -59,7 +59,7 @@ class PriceInfo extends StatelessWidget {
                 thickness: 0.05,
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(8.0, 12, 8, 12),
+                padding: const EdgeInsets.fromLTRB(8.0, 16, 8, 16),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -83,7 +83,7 @@ class PriceInfo extends StatelessWidget {
                 thickness: 0.05,
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(8.0, 12, 8, 12),
+                padding: const EdgeInsets.fromLTRB(8.0, 16, 8, 16),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -100,7 +100,7 @@ class PriceInfo extends StatelessWidget {
                 thickness: 0.05,
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(8.0, 12, 8, 12),
+                padding: const EdgeInsets.fromLTRB(8.0, 16, 8, 16),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [

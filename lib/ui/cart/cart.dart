@@ -13,6 +13,7 @@ import 'package:shop_flutter/ui/auth/auth.dart';
 import 'package:shop_flutter/ui/cart/bloc/cart_bloc.dart';
 import 'package:shop_flutter/ui/cart/cart_item.dart';
 import 'package:shop_flutter/ui/cart/price_info.dart';
+import 'package:shop_flutter/ui/shipping/shipping.dart';
 import 'package:shop_flutter/ui/widgets/empty_state.dart';
 
 class CartScreen extends StatefulWidget {
@@ -58,7 +59,18 @@ class _CartScreenState extends State<CartScreen> {
           visible: stateIsSuccess,
           child: FloatingActionButton.extended(
             backgroundColor: LightThemeColors.secondaryColor,
-            onPressed: () {},
+            onPressed: () {
+              final state = cartBloc!.state;
+
+              if (state is CartSuccess) {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => ShippingScreen(
+                          payablePrice: state.cartResponse.payablePrice,
+                          totalPrice: state.cartResponse.totalPrice,
+                          shippingCost: state.cartResponse.shippingCost,
+                        )));
+              }
+            },
             label: const Text(
               'پرداخت',
             ),
@@ -162,6 +174,17 @@ class _CartScreenState extends State<CartScreen> {
                   message:
                       'برای مشاهده سبد خرید ابتدا وارد حساب کاربری خود شوید',
                   callToAction: ElevatedButton(
+                      style: ButtonStyle(
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(4.0),
+                            // side: BorderSide(color: Colors.red)
+                          )),
+                          foregroundColor: MaterialStateProperty.all(
+                              Theme.of(context).colorScheme.onPrimary),
+                          backgroundColor: MaterialStateProperty.all(
+                              Theme.of(context).colorScheme.primary)),
                       onPressed: () {
                         Navigator.of(context, rootNavigator: true).push(
                             MaterialPageRoute(
