@@ -36,9 +36,8 @@ class CartRemoteDataSource implements ICartDataSource {
   }
 
   @override
-  Future<void> delete(int cartItemId) {
-    // TODO: implement delete
-    throw UnimplementedError();
+  Future<void> delete(int cartItemId) async {
+    await httpClient.get('cart/remove', data: {"cart_item_id": cartItemId});
   }
 
   @override

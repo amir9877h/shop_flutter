@@ -13,10 +13,13 @@ class CartStarted extends CartEvent {
   const CartStarted({this.authInfo});
 }
 
-class CartDeleteButton extends CartEvent {
-  final int productId;
+class CartDeleteButtonClicked extends CartEvent {
+  final int cartItemId;
 
-  const CartDeleteButton({required this.productId});
+  const CartDeleteButtonClicked({required this.cartItemId});
+
+  @override
+  List<Object> get props => [cartItemId];
 }
 
 class CartAuthInfoChanged extends CartEvent {

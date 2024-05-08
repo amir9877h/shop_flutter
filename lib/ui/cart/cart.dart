@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -7,8 +6,8 @@ import 'package:shop_flutter/data/repo/auth_repository.dart';
 import 'package:shop_flutter/data/repo/cart_repository.dart';
 import 'package:shop_flutter/ui/auth/auth.dart';
 import 'package:shop_flutter/ui/cart/bloc/cart_bloc.dart';
+import 'package:shop_flutter/ui/cart/cart_item.dart';
 import 'package:shop_flutter/ui/widgets/empty_state.dart';
-import 'package:shop_flutter/ui/widgets/image.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
@@ -71,98 +70,12 @@ class _CartScreenState extends State<CartScreen> {
                   itemCount: state.cartResponse.cartItems.length,
                   itemBuilder: (context, index) {
                     final data = state.cartResponse.cartItems[index];
-                    return Container(
-                      margin: const EdgeInsets.all(4),
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.surface,
-                        borderRadius: BorderRadius.circular(8),
-                        boxShadow: [
-                          BoxShadow(
-                              color: Colors.black.withOpacity(0.05),
-                              blurRadius: 10)
-                        ],
-                      ),
-                      child: Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              children: [
-                                SizedBox(
-                                  width: 100,
-                                  height: 100,
-                                  child: ImageLoadingService(
-                                      imageUrl: data.product.imageUrl,
-                                      borderRadius: BorderRadius.circular(4)),
-                                ),
-                                Expanded(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      data.product.title,
-                                      style: const TextStyle(fontSize: 16),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'تعداد',
-                                      style:
-                                          Theme.of(context).textTheme.bodySmall,
-                                    ),
-                                    Row(
-                                      children: [
-                                        IconButton(
-                                            onPressed: () {},
-                                            icon: const Icon(
-                                                CupertinoIcons.plus_rectangle)),
-                                        Text(
-                                          data.count.toString(),
-                                          style: const TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        IconButton(
-                                            onPressed: () {},
-                                            icon: const Icon(CupertinoIcons
-                                                .minus_rectangle)),
-                                      ],
-                                    )
-                                  ],
-                                ),
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      data.product.previousPrice.withPriceLable,
-                                      style: const TextStyle(
-                                          decoration:
-                                              TextDecoration.lineThrough),
-                                    ),
-                                    Text(data.product.price.withPriceLable),
-                                  ],
-                                )
-                              ],
-                            ),
-                          ),
-                          const Divider(
-                            thickness: 0.1,
-                          ),
-                          TextButton(
-                              onPressed: () {},
-                              child: const Text('حذف از سبد خرید')),
-                        ],
-                      ),
+                    return CartItem(
+                      data: data,
+                      onDeleteButtonClicked: () {
+                        cartBloc
+                            ?.add(CartDeleteButtonClicked(cartItemId: data.id));
+                      },
                     );
                   });
             } else if (state is CartAuthRequired) {
