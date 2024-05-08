@@ -57,6 +57,8 @@ class MyApp extends StatelessWidget {
         //   filled: true,
         //   fillColor: Colors.orange,
         // ),
+        snackBarTheme: SnackBarThemeData(
+            contentTextStyle: defaultTextStyle.apply(color: Colors.white)),
         textTheme: TextTheme(
           labelLarge: defaultTextStyle,
           bodySmall: defaultTextStyle.apply(
