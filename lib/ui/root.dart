@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shop_flutter/data/repo/auth_repository.dart';
+import 'package:shop_flutter/data/repo/cart_repository.dart';
 import 'package:shop_flutter/ui/cart/cart.dart';
 import 'package:shop_flutter/ui/home/home.dart';
 import 'package:shop_flutter/ui/widgets/cart_badge.dart';
@@ -30,6 +31,12 @@ class _RootScreenState extends State<RootScreen> {
     cartIndex: _cartKey,
     profileIndex: _profileKey,
   };
+
+  @override
+  void initState() {
+    cartRepository.count();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,6 +71,7 @@ class _RootScreenState extends State<RootScreen> {
                     ElevatedButton(
                         onPressed: () {
                           authRepository.signOut();
+                          CartRepository.cartItemCountNotifier.value = 0;
                         },
                         child: const Text('خروج'))
                   ],
@@ -71,24 +79,27 @@ class _RootScreenState extends State<RootScreen> {
           ],
         ),
         bottomNavigationBar: BottomNavigationBar(
-          items: const [
-            BottomNavigationBarItem(
+          items: [
+            const BottomNavigationBarItem(
                 icon: Icon(CupertinoIcons.home), label: 'خانه'),
             BottomNavigationBarItem(
                 icon: Stack(
                   clipBehavior: Clip.none,
                   children: [
-                    Icon(CupertinoIcons.cart),
+                    const Icon(CupertinoIcons.cart),
                     Positioned(
                       right: -10,
-                      child: CartBadge(
-                        value: 2,
+                      child: ValueListenableBuilder<int>(
+                        valueListenable: CartRepository.cartItemCountNotifier,
+                        builder: (context, value, child) {
+                          return CartBadge(value: value);
+                        },
                       ),
                     )
                   ],
                 ),
                 label: 'سبد خرید'),
-            BottomNavigationBarItem(
+            const BottomNavigationBarItem(
                 icon: Icon(CupertinoIcons.person), label: 'پروفایل'),
           ],
           currentIndex: selectedScreenIndex,
