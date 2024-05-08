@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:shop_flutter/data/repo/auth_repository.dart';
 import 'package:shop_flutter/ui/cart/cart.dart';
 import 'package:shop_flutter/ui/home/home.dart';
+import 'package:shop_flutter/ui/widgets/cart_badge.dart';
 
 const int homeIndex = 0;
 const int cartIndex = 1;
@@ -74,7 +75,19 @@ class _RootScreenState extends State<RootScreen> {
             BottomNavigationBarItem(
                 icon: Icon(CupertinoIcons.home), label: 'خانه'),
             BottomNavigationBarItem(
-                icon: Icon(CupertinoIcons.cart), label: 'سبد خرید'),
+                icon: Stack(
+                  clipBehavior: Clip.none,
+                  children: [
+                    Icon(CupertinoIcons.cart),
+                    Positioned(
+                      right: -10,
+                      child: CartBadge(
+                        value: 2,
+                      ),
+                    )
+                  ],
+                ),
+                label: 'سبد خرید'),
             BottomNavigationBarItem(
                 icon: Icon(CupertinoIcons.person), label: 'پروفایل'),
           ],
