@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shop_flutter/data/repo/auth_repository.dart';
-import 'package:shop_flutter/ui/auth/auth.dart';
 import 'package:shop_flutter/ui/cart/cart.dart';
 import 'package:shop_flutter/ui/home/home.dart';
 

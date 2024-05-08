@@ -52,9 +52,46 @@ class CartBloc extends Bloc<CartEvent, CartState> {
             await loadCartItems(emit, false);
           }
         }
+      } else if (event is CartIncreaseCountButtonClicked ||
+          event is CartDecreaseCountButtonClicked) {
+        try {
+          int cartItemId = 0;
+          if (event is CartIncreaseCountButtonClicked) {
+            cartItemId = event.cartItemId;
+          } else if (event is CartDecreaseCountButtonClicked) {
+            cartItemId = event.cartItemId;
+          }
+          if (state is CartSuccess) {
+            final successState = (state as CartSuccess);
+            final index = successState.cartResponse.cartItems
+                .indexWhere((element) => element.id == cartItemId);
+            successState.cartResponse.cartItems[index].changeCountLoading =
+                true;
+            emit(CartSuccess(cartResponse: successState.cartResponse));
+
+            await Future.delayed(const Duration(seconds: 2));
+            final newCount = event is CartIncreaseCountButtonClicked
+                ? ++successState.cartResponse.cartItems[index].count
+                : --successState.cartResponse.cartItems[index].count;
+            await cartRepository.changeCount(cartItemId, newCount);
+            // if (state is CartSuccess) {
+            //   final successState = (state as CartSuccess);
+            successState.cartResponse.cartItems
+                .firstWhere((element) => element.id == cartItemId)
+              ..count = newCount
+              ..changeCountLoading = false;
+
+            emit(calculatePriceInfo(successState.cartResponse));
+
+            // }
+          }
+        } catch (e) {
+          emit(CartError(exception: AppException()));
+        }
       }
     });
   }
+
   Future<void> loadCartItems(Emitter<CartState> emit, bool isRefreshing) async {
     try {
       if (!isRefreshing) {

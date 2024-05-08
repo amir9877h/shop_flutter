@@ -107,6 +107,21 @@ class _CartScreenState extends State<CartScreen> {
                         final data = state.cartResponse.cartItems[index];
                         return CartItem(
                           data: data,
+                          onIncreaseButtonClicked: () {
+                            cartBloc?.add(CartIncreaseCountButtonClicked(
+                                cartItemId: data.id));
+                          },
+                          onDecreaseButtonClicked: () {
+                            if (data.count > 1) {
+                              cartBloc?.add(CartDecreaseCountButtonClicked(
+                                  cartItemId: data.id));
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      content: Text(
+                                          'کمترین مقدار یک واحد میباشد.')));
+                            }
+                          },
                           onDeleteButtonClicked: () {
                             cartBloc?.add(
                                 CartDeleteButtonClicked(cartItemId: data.id));
