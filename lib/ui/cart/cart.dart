@@ -8,6 +8,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shop_flutter/common/utils.dart';
 import 'package:shop_flutter/data/repo/auth_repository.dart';
 import 'package:shop_flutter/data/repo/cart_repository.dart';
+import 'package:shop_flutter/theme.dart';
 import 'package:shop_flutter/ui/auth/auth.dart';
 import 'package:shop_flutter/ui/cart/bloc/cart_bloc.dart';
 import 'package:shop_flutter/ui/cart/cart_item.dart';
@@ -25,6 +26,7 @@ class _CartScreenState extends State<CartScreen> {
   CartBloc? cartBloc;
   StreamSubscription? stateStreamSubscription;
   final RefreshController _refreshController = RefreshController();
+  bool stateIsSuccess = false;
 
   @override
   void initState() {
@@ -49,6 +51,20 @@ class _CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: SizedBox(
+        width: MediaQuery.of(context).size.width - 48,
+        child: Visibility(
+          visible: stateIsSuccess,
+          child: FloatingActionButton.extended(
+            backgroundColor: LightThemeColors.secondaryColor,
+            onPressed: () {},
+            label: const Text(
+              'پرداخت',
+            ),
+          ),
+        ),
+      ),
       backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
       appBar: AppBar(
         centerTitle: true,
@@ -58,6 +74,10 @@ class _CartScreenState extends State<CartScreen> {
         create: (context) {
           final bloc = CartBloc(cartRepository: cartRepository);
           stateStreamSubscription = bloc.stream.listen((state) {
+            setState(() {
+              stateIsSuccess = state is CartSuccess;
+            });
+
             if (_refreshController.isRefresh) {
               if (state is CartSuccess) {
                 _refreshController.refreshCompleted();
@@ -100,6 +120,7 @@ class _CartScreenState extends State<CartScreen> {
                       isRefreshing: true));
                 },
                 child: ListView.builder(
+                    padding: const EdgeInsets.only(bottom: 64),
                     physics: defaultscrollphysics,
                     itemCount: state.cartResponse.cartItems.length + 1,
                     itemBuilder: (context, index) {
