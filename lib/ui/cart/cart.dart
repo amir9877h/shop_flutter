@@ -11,6 +11,7 @@ import 'package:shop_flutter/data/repo/cart_repository.dart';
 import 'package:shop_flutter/ui/auth/auth.dart';
 import 'package:shop_flutter/ui/cart/bloc/cart_bloc.dart';
 import 'package:shop_flutter/ui/cart/cart_item.dart';
+import 'package:shop_flutter/ui/cart/price_info.dart';
 import 'package:shop_flutter/ui/widgets/empty_state.dart';
 
 class CartScreen extends StatefulWidget {
@@ -100,16 +101,24 @@ class _CartScreenState extends State<CartScreen> {
                 },
                 child: ListView.builder(
                     physics: defaultscrollphysics,
-                    itemCount: state.cartResponse.cartItems.length,
+                    itemCount: state.cartResponse.cartItems.length + 1,
                     itemBuilder: (context, index) {
-                      final data = state.cartResponse.cartItems[index];
-                      return CartItem(
-                        data: data,
-                        onDeleteButtonClicked: () {
-                          cartBloc?.add(
-                              CartDeleteButtonClicked(cartItemId: data.id));
-                        },
-                      );
+                      if (index < state.cartResponse.cartItems.length) {
+                        final data = state.cartResponse.cartItems[index];
+                        return CartItem(
+                          data: data,
+                          onDeleteButtonClicked: () {
+                            cartBloc?.add(
+                                CartDeleteButtonClicked(cartItemId: data.id));
+                          },
+                        );
+                      } else {
+                        return PriceInfo(
+                          payablePrice: state.cartResponse.payablePrice,
+                          totalPrice: state.cartResponse.totalPrice,
+                          shippingCost: state.cartResponse.shippingCost,
+                        );
+                      }
                     }),
               );
             } else if (state is CartAuthRequired) {
