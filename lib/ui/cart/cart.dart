@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shop_flutter/common/utils.dart';
 import 'package:shop_flutter/data/repo/auth_repository.dart';
 import 'package:shop_flutter/data/repo/cart_repository.dart';
 import 'package:shop_flutter/ui/auth/auth.dart';
 import 'package:shop_flutter/ui/cart/bloc/cart_bloc.dart';
+import 'package:shop_flutter/ui/widgets/empty_state.dart';
 import 'package:shop_flutter/ui/widgets/image.dart';
 
 class CartScreen extends StatefulWidget {
@@ -40,6 +42,7 @@ class _CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
       appBar: AppBar(
         centerTitle: true,
         title: const Text("سبد خرید"),
@@ -163,24 +166,27 @@ class _CartScreenState extends State<CartScreen> {
                     );
                   });
             } else if (state is CartAuthRequired) {
-              return Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                      'جهت نمایش سبد خرید،\n وارد حساب کاربری خود شوید',
-                      textAlign: TextAlign.center,
-                    ),
-                    ElevatedButton(
-                        onPressed: () {
-                          Navigator.of(context, rootNavigator: true).push(
-                              MaterialPageRoute(
-                                  builder: (context) => const AuthScreen()));
-                        },
-                        child: const Text('ورود')),
-                  ],
-                ),
-              );
+              return EmptyView(
+                  message:
+                      'برای مشاهده سبد خرید ابتدا وارد حساب کاربری خود شوید',
+                  callToAction: ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context, rootNavigator: true).push(
+                            MaterialPageRoute(
+                                builder: (context) => const AuthScreen()));
+                      },
+                      child: const Text('ورود به حساب کاربری')),
+                  image: SvgPicture.asset(
+                    'assets/img/auth_required.svg',
+                    width: 140,
+                  ));
+            } else if (state is CartEmpty) {
+              return EmptyView(
+                  message: 'تاکنون هیچ محصولی به سبد خرید خود اضافه نکرده اید',
+                  image: SvgPicture.asset(
+                    'assets/img/empty_cart.svg',
+                    width: 200,
+                  ));
             } else {
               throw 'State is Invalid';
             }

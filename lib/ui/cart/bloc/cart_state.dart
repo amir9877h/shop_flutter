@@ -25,3 +25,5 @@ final class CartError extends CartState {
 }
 
 final class CartAuthRequired extends CartState {}
+
+final class CartEmpty extends CartState {}
