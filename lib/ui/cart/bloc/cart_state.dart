@@ -23,3 +23,5 @@ final class CartError extends CartState {
 
   const CartError({required this.exception});
 }
+
+final class CartAuthRequired extends CartState {}

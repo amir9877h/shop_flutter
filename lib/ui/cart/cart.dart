@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shop_flutter/common/utils.dart';
+import 'package:shop_flutter/data/repo/auth_repository.dart';
 import 'package:shop_flutter/data/repo/cart_repository.dart';
+import 'package:shop_flutter/ui/auth/auth.dart';
 import 'package:shop_flutter/ui/cart/bloc/cart_bloc.dart';
 import 'package:shop_flutter/ui/widgets/image.dart';
 
@@ -19,7 +21,8 @@ class CartScreen extends StatelessWidget {
       body: BlocProvider<CartBloc>(
         create: (context) {
           final bloc = CartBloc(cartRepository: cartRepository);
-          bloc.add(CartStarted());
+          bloc.add(
+              CartStarted(authInfo: AuthRepository.authChangeNotifier.value));
           return bloc;
         },
         child: BlocBuilder<CartBloc, CartState>(
@@ -132,6 +135,21 @@ class CartScreen extends StatelessWidget {
                       ),
                     );
                   });
+            } else if (state is CartAuthRequired) {
+              return Center(
+                child: Column(
+                  children: [
+                    const Text('وارد حساب کاربری خود شوید'),
+                    ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context, rootNavigator: true).push(
+                              MaterialPageRoute(
+                                  builder: (context) => const AuthScreen()));
+                        },
+                        child: const Text('ورود')),
+                  ],
+                ),
+              );
             } else {
               throw 'State is Invalid';
             }
