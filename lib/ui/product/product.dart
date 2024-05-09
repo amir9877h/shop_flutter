@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:shop_flutter/common/utils.dart';
 import 'package:shop_flutter/data/product.dart';
 import 'package:shop_flutter/ui/product/product_details.dart';
