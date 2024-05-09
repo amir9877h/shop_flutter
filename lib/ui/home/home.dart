@@ -5,6 +5,7 @@ import 'package:shop_flutter/data/product.dart';
 import 'package:shop_flutter/data/repo/banner_repository.dart';
 import 'package:shop_flutter/data/repo/product_repository.dart';
 import 'package:shop_flutter/ui/home/bloc/home_bloc.dart';
+import 'package:shop_flutter/ui/list/list.dart';
 import 'package:shop_flutter/ui/product/product.dart';
 import 'package:shop_flutter/ui/widgets/error.dart';
 import 'package:shop_flutter/ui/widgets/slider.dart';
@@ -48,13 +49,23 @@ class HomeScreen extends StatelessWidget {
                         return _HorizontalProductList(
                           title: 'جدیدترین',
                           products: state.latestProducts,
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => const ProductListScreen(
+                                  sort: ProductSort.latest),
+                            ));
+                          },
                         );
                       case 4:
                         return _HorizontalProductList(
                           title: 'پربازدیدترین',
                           products: state.popularProducts,
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => const ProductListScreen(
+                                  sort: ProductSort.popular),
+                            ));
+                          },
                         );
                       default:
                         return Container();

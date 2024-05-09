@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:shop_flutter/common/utils.dart';
 import 'package:shop_flutter/data/product.dart';
 import 'package:shop_flutter/ui/product/product_details.dart';
@@ -8,11 +9,17 @@ import 'package:shop_flutter/ui/widgets/image.dart';
 class ProductItem extends StatelessWidget {
   const ProductItem({
     super.key,
-    required this.product, required this.borderRadius,
+    required this.product,
+    required this.borderRadius,
+    this.itemWidth = 176,
+    this.itemHeight = 189,
   });
 
   final ProductEntity product;
   final BorderRadius borderRadius;
+
+  final double itemWidth;
+  final double itemHeight;
 
   @override
   Widget build(BuildContext context) {
@@ -25,18 +32,16 @@ class ProductItem extends StatelessWidget {
               builder: (context) => ProductDetailScreen(product: product)));
         },
         child: SizedBox(
-          width: 176,
+          width: itemWidth,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Stack(
                 children: [
-                  SizedBox(
-                    width: 176,
-                    height: 167,
+                  AspectRatio(
+                    aspectRatio: 0.93,
                     child: ImageLoadingService(
-                        imageUrl: product.imageUrl,
-                        borderRadius: borderRadius),
+                        imageUrl: product.imageUrl, borderRadius: borderRadius),
                   ),
                   Positioned(
                     right: 8,
