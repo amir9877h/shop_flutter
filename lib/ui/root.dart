@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:shop_flutter/data/repo/auth_repository.dart';
 import 'package:shop_flutter/data/repo/cart_repository.dart';
 import 'package:shop_flutter/ui/cart/cart.dart';
 import 'package:shop_flutter/ui/home/home.dart';
+import 'package:shop_flutter/ui/profile/profile_screen.dart';
 import 'package:shop_flutter/ui/widgets/cart_badge.dart';
 
 const int homeIndex = 0;
@@ -62,20 +62,7 @@ class _RootScreenState extends State<RootScreen> {
           children: [
             _navigator(_homeKey, homeIndex, const HomeScreen()),
             _navigator(_cartKey, cartIndex, const CartScreen()),
-            _navigator(
-                _profileKey,
-                profileIndex,
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ElevatedButton(
-                        onPressed: () {
-                          authRepository.signOut();
-                          CartRepository.cartItemCountNotifier.value = 0;
-                        },
-                        child: const Text('خروج'))
-                  ],
-                )),
+            _navigator(_profileKey, profileIndex, const ProfileScreen()),
           ],
         ),
         bottomNavigationBar: BottomNavigationBar(
