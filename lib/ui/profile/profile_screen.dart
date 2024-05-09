@@ -5,6 +5,7 @@ import 'package:shop_flutter/data/repo/auth_repository.dart';
 import 'package:shop_flutter/data/repo/cart_repository.dart';
 import 'package:shop_flutter/ui/auth/auth.dart';
 import 'package:shop_flutter/ui/favorites/favorite_screen.dart';
+import 'package:shop_flutter/ui/order/order_history_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -80,7 +81,11 @@ class ProfileScreen extends StatelessWidget {
                   ),
                 if (isLogin)
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const OrderHistoryScreen(),
+                      ));
+                    },
                     child: Container(
                       padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
                       child: const Row(

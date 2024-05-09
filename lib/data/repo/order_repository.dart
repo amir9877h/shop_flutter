@@ -9,6 +9,7 @@ final orderRepository =
 abstract class IOrderRepository {
   Future<CreateOrderResult> createOrder(CreateOrderParameters parameters);
   Future<PaymentReceiptData> getPaymentReceipt(int orderId);
+  Future<List<OrderEntity>> getOrders();
 }
 
 class OrderRepository implements IOrderRepository {
@@ -20,9 +21,14 @@ class OrderRepository implements IOrderRepository {
   Future<CreateOrderResult> createOrder(CreateOrderParameters parameters) {
     return dataSource.createOrder(parameters);
   }
-  
+
   @override
   Future<PaymentReceiptData> getPaymentReceipt(int orderId) {
     return dataSource.getPaymentReceipt(orderId);
+  }
+
+  @override
+  Future<List<OrderEntity>> getOrders() {
+    return dataSource.getOrders();
   }
 }

@@ -1,3 +1,5 @@
+import 'package:shop_flutter/data/product.dart';
+
 class CreateOrderResult {
   final int orderId;
   final String bankGatewayUrl;
@@ -29,4 +31,22 @@ class CreateOrderParameters {
 enum PaymentMethod {
   online,
   cashOnDelivery,
+}
+
+class OrderEntity {
+  final int orderId;
+  final int payablePrice;
+  final List<ProductEntity> products;
+
+  OrderEntity(
+      {required this.orderId,
+      required this.payablePrice,
+      required this.products});
+
+  OrderEntity.fromJson(Map<String, dynamic> json)
+      : orderId = json['id'],
+        payablePrice = json['payable'],
+        products = (json['order_items'] as List)
+            .map((e) => ProductEntity.fromJson(e['product']))
+            .toList();
 }
