@@ -25,15 +25,15 @@ class ShippingScreen extends StatefulWidget {
 }
 
 class _ShippingScreenState extends State<ShippingScreen> {
-  final TextEditingController firstNameController = TextEditingController();
+  final TextEditingController firstNameController = TextEditingController(text: 'تست 01');
 
-  final TextEditingController lastNameController = TextEditingController();
+  final TextEditingController lastNameController = TextEditingController(text: 'تستی');
 
-  final TextEditingController phoneNumberController = TextEditingController();
+  final TextEditingController phoneNumberController = TextEditingController(text: '09000000000');
 
-  final TextEditingController postalCodeController = TextEditingController();
+  final TextEditingController postalCodeController = TextEditingController(text: '1234567890');
 
-  final TextEditingController addressController = TextEditingController();
+  final TextEditingController addressController = TextEditingController(text: 'ایران تهران تهران تهران تهران تهران تهران');
 
   StreamSubscription? subscription;
 
@@ -59,7 +59,9 @@ class _ShippingScreenState extends State<ShippingScreen> {
                   SnackBar(content: Text(event.exception.message)));
             } else if (event is ShippingSuccess) {
               Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const PaymentReceiptScreen()));
+                  builder: (context) => PaymentReceiptScreen(
+                        orderId: event.result.orderId,
+                      )));
             }
           });
 

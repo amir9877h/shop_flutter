@@ -1,8 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:shop_flutter/data/order.dart';
+import 'package:shop_flutter/data/payment_receipt.dart';
 
 abstract class IOrderDataSource {
   Future<CreateOrderResult> createOrder(CreateOrderParameters parameters);
+  Future<PaymentReceiptData> getPaymentReceipt(int orderId);
 }
 
 class OrderRemoteDataSource implements IOrderDataSource {
@@ -25,5 +27,11 @@ class OrderRemoteDataSource implements IOrderDataSource {
     });
 
     return CreateOrderResult.fromJson(response.data);
+  }
+
+  @override
+  Future<PaymentReceiptData> getPaymentReceipt(int orderId) async {
+    final response = await httpClient.get('order/checkout?order_id=$orderId');
+    return PaymentReceiptData.fromJson(response.data);
   }
 }
