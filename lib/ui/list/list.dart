@@ -16,8 +16,14 @@ class ProductListScreen extends StatefulWidget {
   State<ProductListScreen> createState() => _ProductListScreenState();
 }
 
+enum ProductViewType {
+  grid,
+  list,
+}
+
 class _ProductListScreenState extends State<ProductListScreen> {
   ProductListBloc? bloc;
+  ProductViewType productViewType = ProductViewType.list;
 
   @override
   void dispose() {
@@ -62,7 +68,8 @@ class _ProductListScreenState extends State<ProductListScreen> {
                           showModalBottomSheet(
                             context: context,
                             builder: (context) {
-                              return SizedBox(//Container()
+                              return SizedBox(
+                                //Container()
                                 height: 300,
                                 child: Padding(
                                   padding: const EdgeInsets.only(
@@ -163,9 +170,19 @@ class _ProductListScreenState extends State<ProductListScreen> {
                               padding:
                                   const EdgeInsets.only(left: 8.0, right: 8),
                               child: IconButton(
-                                  onPressed: () {},
-                                  icon: const Icon(
-                                      CupertinoIcons.square_grid_2x2)),
+                                  onPressed: () {
+                                    setState(() {
+                                      productViewType = productViewType ==
+                                              ProductViewType.grid
+                                          ? ProductViewType.list
+                                          : ProductViewType.grid;
+                                    });
+                                  },
+                                  icon: productViewType == ProductViewType.list
+                                      ? const Icon(
+                                          CupertinoIcons.square_grid_2x2)
+                                      : const Icon(CupertinoIcons
+                                          .list_bullet_below_rectangle)),
                             )
                           ],
                         ),
@@ -174,10 +191,10 @@ class _ProductListScreenState extends State<ProductListScreen> {
                     Expanded(
                       child: GridView.builder(
                         physics: defaultscrollphysics,
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           childAspectRatio: 0.65,
-                          crossAxisCount: 2,
+                          crossAxisCount:
+                              productViewType == ProductViewType.grid ? 2 : 1,
                         ),
                         itemCount: products.length,
                         itemBuilder: (context, index) {
